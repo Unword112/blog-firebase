@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { auth, db } from "../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection} from "firebase/firestore";
+import { addDoc, collection, doc} from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
   function Register({ setIsAuth }) {

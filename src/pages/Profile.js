@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
-import { db } from '../firebase-config'
+import { getDocs, collection, doc, query, where, onSnapshot } from "firebase/firestore";
+import { db, auth } from '../firebase-config'
 
-function Home({ isAuth }) {
-    const userRef = db.collection('users')
-    const unsub = userRef.onSnapshot(docSnapshot => {
-      if (docSnapshot.empty) {
-        console.log('No matching documents.')
-        return
-      }
-      docSnapshot.forEach(doc => {
-        console.log(doc.id, '=>', doc.data())
-      })
-    }, err => {
-      console.log(`Encountered error: ${err}`)
-    })
-    
-    unsub();
-    
+import { useNavigate } from "react-router-dom";
+ 
+/*import { doc, updateDoc, increment } from "firebase/firestore";
+
+const washingtonRef = doc(db, "cities", "DC");
+
+// Atomically increment the population of the city by 50.
+await updateDoc(washingtonRef, {
+    population: increment(50)
+});
+cd blog-firebase */
+
+function Profile({ isAuth }) {
+  const [user, setUser] = useState(() => {
+    const user = auth.currentUser;
+
+    return user;
+  });
+
+
+const q = query(collection(db, "users"), where("email", "==", user.email));
+const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  const name = [];
+  querySnapshot.forEach((doc) => {
+    name.push(doc.data().fullname);
+  });
+  console.log(name.join(", "));
+});
+
   return (
     <div className="homePage">
       
@@ -25,4 +38,4 @@ function Home({ isAuth }) {
   );
 }
 
-export default Home;
+export default Profile;
