@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDocs, collection, doc, query, where, onSnapshot } from "firebase/firestore";
+import { getDocs, collection, doc, query, where, onSnapshot, updateDoc } from "firebase/firestore";
 import { db, auth } from '../firebase-config'
 
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ function Profile({ isAuth }) {
     return user;
   });
 
+  const [ fullname, setFullname ] = useState('')
 
 const q = query(collection(db, "users"), where("email", "==", user.email));
 const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -28,12 +29,24 @@ const unsubscribe = onSnapshot(q, (querySnapshot) => {
   querySnapshot.forEach((doc) => {
     name.push(doc.data().fullname);
   });
-  console.log(name.join(", "));
+  return setFullname(name)
 });
+
+
+const editProfile = async () => {
+  await updateDoc(q, {
+    fullname: setFullname(fullname),
+  })
+}
 
   return (
     <div className="homePage">
-      
+      {setFullname.map((fullname => {
+        return <div>
+          {fullname.name}
+          <button></button>
+        </div>
+      }))}
     </div>
   );
 }
