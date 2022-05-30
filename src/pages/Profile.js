@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {setDoc, getDocs, collection, doc, query, where, onSnapshot, updateDoc, getDoc } from "firebase/firestore";
 import { db, auth } from '../firebase-config'
 import ProfilePicture from './ProfilePicture'
+import '../style.css'
 
 /*import { doc, updateDoc, increment } from "firebase/firestore";
 

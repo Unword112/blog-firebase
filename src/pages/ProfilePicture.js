@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth, upload } from "../firebase-config";
+import '../style.css';
 
 export default function ProfilePicture() {
   const currentUser = useAuth();
@@ -25,10 +26,10 @@ export default function ProfilePicture() {
 
   return (
     <div className="fields">
-      <img src={photoURL} width={250} height={250} />
+      <img src={photoURL} width={250} height={250} alt=''/>
       <div>
         <input type="file" onChange={handleChange} />
-        <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
+        <button className='upload-btn' disabled={loading || !photo} onClick={handleClick}>Upload</button>
       </div>
      
     </div>

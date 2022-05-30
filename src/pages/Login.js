@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import '../style.css'
 
 function Login({ setIsAuth }) {
     const [email, setEmail] = useState("");
@@ -39,31 +40,33 @@ function Login({ setIsAuth }) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail Address"
             />
-            <input
-            type="password"
-            className="login__textBox"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            />
-            <button
-            className="login__btn"
-            type="submit"
-            onClick={() => logInWithEmailAndPassword(email, password)}
-            >
-            Login
-            </button>
-
         </div>
-       <p>Sign In With Google to Continue</p>
+        <div className="login__container">
+            <input
+              type="password"
+              className="login__textBox"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
+        </div>
+          <button
+          className="login__btn"
+          type="submit"
+          onClick={() => logInWithEmailAndPassword(email, password)}
+          >
+            Login
+          </button>
+
+       <p className='text'>Sign In With Google to Continue</p>
       <button className="login-with-google-btn" onClick={signInWithGoogle}>
         Sign in with Google
       </button>
 
-        <div>
+        <div className='text'>
           <Link to="/reset">Forgot Password</Link>
         </div>
-        <div>
+        <div className='text'>
           Don't have an account? <Link to="/register">Register</Link> now.
         </div>
     </div>

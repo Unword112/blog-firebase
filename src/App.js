@@ -1,4 +1,4 @@
-import "./App.css";
+import "./style.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -26,15 +26,15 @@ function App() {
   return (
     <Router>
       <nav>
-        <Link to="/"> Home </Link>
+        <Link to="/" className="link"> Home </Link>
 
         {!isAuth ? (
-          <Link to="/login"> Login </Link>
+          <Link to="/login" className="link"> Login </Link>
         ) : (
           <>
-            <Link to="/createpost"> Create Post </Link>
-            <Link to="/profile">Profile</Link>
-            <button onClick={signUserOut}> Log Out</button>
+            <Link to="/createpost" className="link"> Create Post </Link>
+            <Link to="/profile" className="link">Profile</Link>
+            <button className='btn-signout' onClick={signUserOut}> Log Out</button>
           </>
         )}
       </nav>
